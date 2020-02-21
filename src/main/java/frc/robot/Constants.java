@@ -72,9 +72,9 @@ public final class Constants {
 
 		//TURRET MOTOR PORT
 		public static final int kTurretMotor = 44; 
+		public static final double kGearRatio = 1;
 		
-		
-			}
+	}
 
 	public static final class LimelightConstants {
 
@@ -107,6 +107,7 @@ public final class Constants {
 		public static final double kShooterkI = 0;
 		public static final double kShooterkD = 0;
 
+		
 	}
 
 	public static final class ClimberConstants {

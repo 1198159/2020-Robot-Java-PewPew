@@ -25,6 +25,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.CenterTargetRobot;
+import frc.robot.commands.CenterTargetTurret;
+import frc.robot.commands.Climb;
 import frc.robot.commands.ShootBall;
 import frc.robot.commands.Intake;
 import frc.robot.subsystems.Climber;
@@ -46,18 +48,19 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public final DriveTrain driveTrain = new DriveTrain();
-  public final Shooter shooter  = new Shooter();
-  //public final LimeLight lime  = new LimeLight();
-  //public final Turret turret  = new Turret();
-  //public final Climber climber = new Climber();
-  public final Intaker intake = new Intaker();
-  public final Indexer indexer  = new Indexer();
-  public Joystick controllerLeft = new Joystick(1);
-  public Joystick controllerRight = new Joystick(0);
-  public JoystickButton leftTrigger = new JoystickButton(controllerLeft, 1);
-  public JoystickButton rightTrigger = new JoystickButton(controllerRight, 1);
-  public JoystickButton rightButton = new JoystickButton(controllerRight, 4);
-  
+  public final Shooter shooter  =     new Shooter();
+  public final LimeLight lime  =     new LimeLight();
+  public final Turret turret  =     new Turret();
+  public final Climber climber =   new Climber();
+  public final Intaker intake =   new Intaker();
+  public final Indexer indexer  =  new Indexer();
+  public Joystick driverLeft =  new Joystick(1);
+  public Joystick driverRight =  new Joystick(0);
+
+  public SamController sController = new SamController(2);
+
+  public JoystickButton leftTrigger = new JoystickButton(driverLeft, 1);
+  public JoystickButton rightTrigger = new JoystickButton(driverRight, 1);
 
 
   /**
@@ -70,16 +73,16 @@ public class RobotContainer {
   }
 
   public double getLeft() {
-    return controllerLeft.getRawAxis(1);
+    return driverLeft.getRawAxis(1);
 
   }
   
   public boolean getLeftTrigger() {
-    return controllerRight.getTrigger();
+    return driverRight.getTrigger();
   }
 
   public double getRight() {
-    return controllerRight.getRawAxis(1);
+    return driverRight.getRawAxis(1);
   }
 
   /**
@@ -93,8 +96,13 @@ public class RobotContainer {
     //leftTrigger.whenPressed(new CenterTargetRobot(driveTrain, lime));
     //rightTrigger.whileHeld(new ShootBall(0.75, shooter));
     //leftTrigger.and(rightTrigger).toggleWhenActive(new CenterTarget(""));
-      rightButton.whenPressed(new Intake(intake, indexer));
-      
+      rightTrigger.whenPressed(new CenterTargetRobot(driveTrain, lime));
+      leftTrigger.whenPressed(new CenterTargetTurret(turret, lime));
+
+      sController.aButton.whenPressed(new Intake(intake, indexer));
+      sController.bButton.whenPressed(new ShootBall(0.5, shooter));
+      sController.xButton.whenPressed(new Climb(climber));
+
   }
 
 

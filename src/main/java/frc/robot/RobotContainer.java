@@ -31,6 +31,7 @@ import frc.robot.commands.ShootBall;
 import frc.robot.commands.Intake;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intaker;
 import frc.robot.subsystems.LimeLight;
@@ -48,6 +49,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public final DriveTrain driveTrain = new DriveTrain();
+<<<<<<< HEAD
   public final Shooter shooter  =     new Shooter();
   public final LimeLight lime  =     new LimeLight();
   public final Turret turret  =     new Turret();
@@ -61,6 +63,21 @@ public class RobotContainer {
 
   public JoystickButton leftTrigger = new JoystickButton(driverLeft, 1);
   public JoystickButton rightTrigger = new JoystickButton(driverRight, 1);
+=======
+  public final Shooter shooter  = new Shooter();
+  public final LimeLight lime  = new LimeLight();
+  public final Turret turret  = new Turret();
+  public final Climber climber = new Climber();
+  public final Intaker intake = new Intaker();
+  public final Indexer indexer  = new Indexer();
+  public final Hopper hopper = new Hopper();
+  public Joystick controllerLeft = new Joystick(1);
+  public Joystick controllerRight = new Joystick(0);
+  public JoystickButton leftTrigger = new JoystickButton(controllerLeft, 1);
+  public JoystickButton rightTrigger = new JoystickButton(controllerRight, 1);
+  public JoystickButton rightButton = new JoystickButton(controllerRight, 4);
+  
+>>>>>>> intake-index-shoot
 
 
   /**

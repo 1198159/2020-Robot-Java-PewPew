@@ -29,6 +29,7 @@ import frc.robot.commands.ShootBall;
 import frc.robot.commands.Intake;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intaker;
 import frc.robot.subsystems.LimeLight;
@@ -47,11 +48,12 @@ public class RobotContainer {
 
   public final DriveTrain driveTrain = new DriveTrain();
   public final Shooter shooter  = new Shooter();
-  //public final LimeLight lime  = new LimeLight();
-  //public final Turret turret  = new Turret();
-  //public final Climber climber = new Climber();
+  public final LimeLight lime  = new LimeLight();
+  public final Turret turret  = new Turret();
+  public final Climber climber = new Climber();
   public final Intaker intake = new Intaker();
   public final Indexer indexer  = new Indexer();
+  public final Hopper hopper = new Hopper();
   public Joystick controllerLeft = new Joystick(1);
   public Joystick controllerRight = new Joystick(0);
   public JoystickButton leftTrigger = new JoystickButton(controllerLeft, 1);

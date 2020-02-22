@@ -12,20 +12,20 @@ import static frc.robot.Constants.IntakeConstants.*;
 public class Intaker extends SubsystemBase {
 
     private CANSparkMax intakeMotor = new CANSparkMax(kIntakeMotor, MotorType.kBrushless);
-    //private DoubleSolenoid intakePistons = new DoubleSolenoid(kLIntakePiston, kRIntakePiston);
+    private DoubleSolenoid intakePistons = new DoubleSolenoid(kLIntakePiston, kRIntakePiston);
 
     public Intaker() {
         intakeMotor.restoreFactoryDefaults();
         intakeMotor.setIdleMode(IdleMode.kBrake);
     }
 
-    /*public void intakePistonsIn() {
+    public void intakePistonsIn() {
         intakePistons.set(Value.kReverse);
     }
 
     public void intakePistonsOut() {
         intakePistons.set(Value.kForward);
-    } */
+    }
 
     public void setSpeed(double speed) {
         intakeMotor.set(speed);

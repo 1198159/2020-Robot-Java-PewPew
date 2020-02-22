@@ -73,6 +73,8 @@ public final class Constants {
 		//TURRET MOTOR PORT
 		public static final int kTurretMotor = 44; 
 		public static final double kGearRatio = 1;
+		public static final int kHallEffectSensor = 0; //THIS NEEDS TO BE CHANGED
+		public static final double kHallOffset = 0.3;
 		
 	}
 

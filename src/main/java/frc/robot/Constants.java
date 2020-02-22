@@ -59,6 +59,14 @@ public final class Constants {
 
 		public static final int kExtIndexMotor = 41;
 		public static final int kMidIndexMotor = 42;
+
+		public static final int kBeamBreakInInput = 0; //THESE VALUES
+		public static final int kBeamBreakInOutput = 0; //HAVE TO BE CHANGED
+		public static final int kBeamBreakOutInput = 0; //NOT THE REAL VALUES
+		public static final int kBeamBreakOutOutput = 0; //CHANGE THESE!!!!!
+
+		public static final double kIndexerSpeed = 0.4; //<< This one can change too idk
+
 	}
 
 	public static final class HopperConstants {

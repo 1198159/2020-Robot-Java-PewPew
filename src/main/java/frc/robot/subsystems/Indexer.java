@@ -18,42 +18,40 @@ import static frc.robot.Constants.IndexerConstants.*;
 
 public class Indexer extends SubsystemBase {
 
-    //instantiate beam break sensors
-    public int initBallCount = 3;  //starting ball count is 3
-    //public CANSparkMax inMotor = new CANSparkMax(initBallCount, null); //Arbitrary Arguments, just for now.
-    //public CANSparkMax outMotor = new CANSparkMax(initBallCount, null);
+    public int ballCount = 3;  //starting ball count is 3
+    public CANSparkMax midMotor = new CANSparkMax(kMidIndexMotor, null); //Arbitrary Arguments, just for now.
+    public CANSparkMax extMotor = new CANSparkMax(kExtIndexMotor, null);
 
     //Digital Sensor port for Beambreak
-    public DigitalInput beamBreakIn = new DigitalInput(initBallCount); //apparently beamBreak can count as a digital input, but with each input there needs to be an output.
-    public DigitalOutput beamBreakOut = new DigitalOutput(initBallCount);
+    //beambreakStart is the sensor that is closest to the turret
+    public DigitalInput beamBreakStartInput = new DigitalInput(kBeamBreakInInput); //apparently beamBreak can count as a digital input, but with each input there needs to be an output.
+    public DigitalOutput beamBreakStartOutput = new DigitalOutput(kBeamBreakInOutput);
 
-    //beambreak2 is the sensor that is closest to the turret
-    public DigitalInput beamBreakIn2 = new DigitalInput(initBallCount); 
-    public DigitalOutput beamBreakOut2 = new DigitalOutput(initBallCount);
+    //beambreakEnd is the sensor that is closest to the turret
+    public DigitalInput beamBreakEndInput = new DigitalInput(kBeamBreakOutInput); 
+    public DigitalOutput beamBreakEndOutput = new DigitalOutput(kBeamBreakOutOutput);
 
 
-    /*public Indexer() 
+    public Indexer() 
     {
-        //instantiate the motors
-        inMotor.restoreFactoryDefaults();
-        outMotor.restoreFactoryDefaults();
+        //instantiates the motors
+        midMotor.restoreFactoryDefaults();
+        extMotor.restoreFactoryDefaults();
 
-        inMotor.follow(outMotor);
+        midMotor.follow(extMotor);
     }
-*/
+
+    public void indexBalls()
+    {
+        extMotor.set(kIndexerSpeed);
+    }
+    public void stopIndexing()
+    {
+        extMotor.set(0);
+    }
+
     public int getBallCount() 
     {
-        //This is the code for the beam break sensor. Ported over to Java. 
-        if(beamBreakIn.get())
-        {
-            //unbroken val
-            return initBallCount; //Have to find the correlative values for the inputs
-        }
-        else
-        {
-            //broken val
-            return initBallCount + 1;
-        }
+       return ballCount;
     }
-
 }

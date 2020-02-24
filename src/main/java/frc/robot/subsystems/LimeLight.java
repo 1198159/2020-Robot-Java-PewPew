@@ -20,7 +20,7 @@ public class LimeLight extends SubsystemBase
     **/
 
     NetworkTable table; //A Network Table is like a regular table. Stores data and is routed to another location.
-    NetworkTableEntry tx, ty, ta;
+    NetworkTableEntry tx, ty, ta, tv;
     double x, y, area;
     double offsetX;
     double kp = 0.1;
@@ -30,6 +30,7 @@ public class LimeLight extends SubsystemBase
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
+        tv = table.getEntry("tv");
     }
     public void update()
     {
@@ -82,6 +83,10 @@ public class LimeLight extends SubsystemBase
         return tx.getDouble(0.0);
     }
 
+    public double getTv()
+    {
+        return tv.getDouble(0.0);
+    }
     public double getDistanceToTarget()
     {
         update();

@@ -16,7 +16,7 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
     private double margin = 0.2;
 
     private int finalCount = 0;
-
+    
     private boolean SeesTarget = false;
     /*
     private double[][] gainTable = new double[][] {{5, 0.0005, 3},
@@ -28,6 +28,9 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
     */
 
     //private double[][] gainTable = new double [][] {{}};
+
+    private double distance;
+
     private int count = 0;
     private double offsetXPrev;
 
@@ -58,9 +61,8 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
         deltaI = 0.2 * offsetX/Math.abs(offsetX);
         deltaD = 0;
         if(offsetX != 0)
-        {
             SeesTarget = true;
-        }
+        distance = lime.getDistanceToTarget();
     }
     public double PID(double err)
     { 

@@ -16,10 +16,10 @@ public class ShootBall extends CommandBase {
     /**
      * Creates a new DriveCommands.
      */
-    public int spinCount = 0;
-    public int hoodCount = 0;
-    public double speed;
-    public boolean ballLoaded = false;
+    private int spinCount = 0;
+    private int hoodCount = 0;
+    private double speed;
+    private boolean ballLoaded = false;
 
     private final Shooter shooter;
     private final Hopper hopper;
@@ -46,38 +46,38 @@ public class ShootBall extends CommandBase {
 	// Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        //raise the hood here
-        shooter.hoodUp();
-        indexer.indexBalls();
-        
+        //raise the hood here        
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() 
     {
-        shooter.setSpeed(calculateNeededSpeed());
-        if(ballLoaded && !indexer.beamBreakEndInput.get())
+        /*shooter.setSpeed(calculateNeededSpeed());
+        if(ballLoaded && !indexer.getEndInput())
         {
-            indexer.ballCount--;
+            indexer.decrementBallCount();;
             
         }
 
-        if(indexer.beamBreakEndInput.get())
+        if(indexer.getEndInput())
         {
             ballLoaded = true;
             hopper.setSpeed(0.5);
         }
 
 
-        shootingBall = indexer.beamBreakEndInput.get();
+        ballLoaded = indexer.getEndInput();*/
+
+        //shooter.setSpeed(0.9);
+        indexer.setSpeed(speed);
+        hopper.setSpeed(0.8);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         shooter.setSpeed(0);
-        shooter.hoodDown();
         indexer.stopIndexing();
         hopper.setSpeed(0);
         //Lower the hood here
@@ -87,6 +87,7 @@ public class ShootBall extends CommandBase {
     @Override
     public boolean isFinished() 
     {
-        return indexer.ballCount == 0;
+        return false;
     }
 }
+

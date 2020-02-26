@@ -1,10 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.Turret;
-import static frc.robot.Constants.TurretConstants.*;
 
 public class CenterTargetTurret extends CommandBase
 {
@@ -123,8 +121,8 @@ public class CenterTargetTurret extends CommandBase
         turret.setSpeed(0); //makes sure that the motor does not continue to move after command is completed
         if(!centered)
             turret.ZeroTurret();
-        else   //Error is here vvvv because the sController has not been initialized in robot container yet
-            RobotContainer.sController.setRumble(0.5,0.5); //rumbles the xbox controller if the turret has successfully centered on the target
+        //else   //Error is here vvvv because the sController has not been initialized in robot container yet
+        //    RobotContainer.sController.setRumble(0.5,0.5); //rumbles the xbox controller if the turret has successfully centered on the target
 
     }
 

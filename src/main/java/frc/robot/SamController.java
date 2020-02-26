@@ -23,10 +23,7 @@ public class SamController extends Joystick {
 	public JoystickButton selectButton = new JoystickButton(this, 7);
 	public JoystickButton leftStickButton = new JoystickButton(this, 9);
 	public JoystickButton rightStickButton = new JoystickButton(this, 10);
-
-	public JoystickButton leftTriggerButton = new XboxLeftTrigger(this);
-	public JoystickButton rightTriggerButton = new XboxRightTrigger(this);
-
+	
 	private int m_outputs;
 	private short m_leftRumble;
 	private short m_rightRumble;

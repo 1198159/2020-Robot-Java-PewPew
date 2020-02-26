@@ -6,13 +6,13 @@ import static frc.robot.Constants.TurretConstants.*;
 
 public class ZeroTurretEncoder extends CommandBase
 {
-    public boolean reachedHall = false;
-    public boolean unreachedHall = false;
-    public double leadingEdge = 0;
-    public double trailingEdge = 0;
-    public double hallCenter = 0;
+    private boolean reachedHall = false;
+    private boolean unreachedHall = false;
+    private double leadingEdge = 0;
+    private double trailingEdge = 0;
+    private double hallCenter = 0;
 
-    private final Turret turret;
+    private Turret turret;
     public ZeroTurretEncoder(Turret turret)
     {
         this.turret = turret;
@@ -26,12 +26,12 @@ public class ZeroTurretEncoder extends CommandBase
 
     public void execute()
     {
-        if(turret.HallEffect.get() && !reachedHall)
+        if(turret.getHESensorVal() && !reachedHall)
         {
             leadingEdge = turret.getMotorPosition();
             reachedHall = true;
         }
-        if(reachedHall && !turret.HallEffect.get())
+        if(reachedHall && !turret.getHESensorVal())
         {
             trailingEdge = turret.getMotorPosition();
             unreachedHall = true;
@@ -41,7 +41,7 @@ public class ZeroTurretEncoder extends CommandBase
     {
         hallCenter = (leadingEdge + trailingEdge) / 2;
 
-        turret.encoder.setPosition(kHallOffset + (turret.getMotorPosition() - hallCenter));
+        turret.setEncoderPosition(kHallOffset + (turret.getMotorPosition() - hallCenter));
         turret.ZeroTurret();
 
     }

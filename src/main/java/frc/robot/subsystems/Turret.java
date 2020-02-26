@@ -13,10 +13,10 @@ import static frc.robot.Constants.TurretConstants.*;
 
 public class Turret extends SubsystemBase
 {
-    public CANSparkMax turret = new CANSparkMax(kTurretMotor, MotorType.kBrushless);
-    public CANEncoder encoder = new CANEncoder(turret);
-    public CANPIDController turretController;
-    public DigitalInput HallEffect = new DigitalInput(kHallEffectSensor);
+    private CANSparkMax turret = new CANSparkMax(kTurretMotor, MotorType.kBrushless);
+    private CANEncoder encoder = new CANEncoder(turret);
+    private CANPIDController turretController;
+    private DigitalInput HallEffect = new DigitalInput(kHallEffectSensor);
 
     public Turret () 
     {
@@ -44,6 +44,10 @@ public class Turret extends SubsystemBase
         return encoder.getPosition();
     }
 
+    public boolean getHESensorVal() {
+        return HallEffect.get();
+    }
+
     public void ZeroEncoder()
     {
         //Use the Hall Effect Sensor to find the position of the motor and set the encoder value appropriately
@@ -53,4 +57,8 @@ public class Turret extends SubsystemBase
     {
         turretController.setReference(0, ControlType.kPosition);
     }
+
+	public void setEncoderPosition(double pos) {
+        encoder.setPosition(pos);
+	}
 }

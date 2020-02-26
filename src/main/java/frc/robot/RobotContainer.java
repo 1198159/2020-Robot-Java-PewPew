@@ -49,21 +49,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public final DriveTrain driveTrain = new DriveTrain();
-<<<<<<< HEAD
-  public final Shooter shooter  =     new Shooter();
-  public final LimeLight lime  =     new LimeLight();
-  public final Turret turret  =     new Turret();
-  public final Climber climber =   new Climber();
-  public final Intaker intake =   new Intaker();
-  public final Indexer indexer  =  new Indexer();
-  public Joystick driverLeft =  new Joystick(1);
-  public Joystick driverRight =  new Joystick(0);
-
-  public SamController sController = new SamController(2);
-
-  public JoystickButton leftTrigger = new JoystickButton(driverLeft, 1);
-  public JoystickButton rightTrigger = new JoystickButton(driverRight, 1);
-=======
   public final Shooter shooter  = new Shooter();
   public final LimeLight lime  = new LimeLight();
   public final Turret turret  = new Turret();
@@ -75,9 +60,12 @@ public class RobotContainer {
   public Joystick controllerRight = new Joystick(0);
   public JoystickButton leftTrigger = new JoystickButton(controllerLeft, 1);
   public JoystickButton rightTrigger = new JoystickButton(controllerRight, 1);
-  public JoystickButton rightButton = new JoystickButton(controllerRight, 4);
+  public JoystickButton button1 = new JoystickButton(controllerLeft, 2);
+  public JoystickButton button2 = new JoystickButton(controllerLeft, 3);
+  public JoystickButton button3 = new JoystickButton(controllerLeft, 4);
+
+  //public SamController sController = new SamController(4);
   
->>>>>>> intake-index-shoot
 
 
   /**
@@ -90,16 +78,16 @@ public class RobotContainer {
   }
 
   public double getLeft() {
-    return driverLeft.getRawAxis(1);
+    return controllerLeft.getRawAxis(1);
 
   }
   
   public boolean getLeftTrigger() {
-    return driverRight.getTrigger();
+    return controllerRight.getTrigger();
   }
 
   public double getRight() {
-    return driverRight.getRawAxis(1);
+    return controllerRight.getRawAxis(1);
   }
 
   /**
@@ -116,9 +104,11 @@ public class RobotContainer {
       rightTrigger.whenPressed(new CenterTargetRobot(driveTrain, lime));
       leftTrigger.whenPressed(new CenterTargetTurret(turret, lime));
 
-      sController.aButton.whenPressed(new Intake(intake, indexer));
-      sController.bButton.whenPressed(new ShootBall(0.5, shooter));
-      sController.xButton.whenPressed(new Climb(climber));
+      button1.whileHeld(new Intake(intake, indexer));
+      button2.whileHeld(new ShootBall(0.4, shooter, hopper, indexer));
+      button3.whileHeld(new ShootBall(-0.4, shooter, hopper, indexer));
+      //button3.whileHeld(new testShooter());
+      //button3.whenPressed(new Climb(climber));
 
   }
 

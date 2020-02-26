@@ -60,8 +60,8 @@ public final class Constants {
 		public static final int kExtIndexMotor = 41;
 		public static final int kMidIndexMotor = 42;
 
-		public static final int kBeamBreakInInput = 0; //THESE VALUES
-		public static final int kBeamBreakInOutput = 0; //HAVE TO BE CHANGED
+		public static final int kBeamBreakInInput = 9; //THESE VALUES
+		public static final int kBeamBreakInOutput = 8; //HAVE TO BE CHANGED
 		public static final int kBeamBreakOutInput = 0; //NOT THE REAL VALUES
 		public static final int kBeamBreakOutOutput = 0; //CHANGE THESE!!!!!
 
@@ -80,9 +80,11 @@ public final class Constants {
 
 		//TURRET MOTOR PORT
 		public static final int kTurretMotor = 44; 
+		public static final double kGearRatio = 1;
+		public static final int kHallEffectSensor = 0; //THIS NEEDS TO BE CHANGED
+		public static final double kHallOffset = 0.3;
 		
-		
-			}
+	}
 
 	public static final class LimelightConstants {
 
@@ -109,12 +111,14 @@ public final class Constants {
 		//S AND V VALUES FOR SHOOTER
 		public static final double kSShooter = 0;
 		public static final double kVShooter = 0;
+		public static final double kAShooter = 0;
 
 		//PID VALUES FOR SHOOTER
-		public static final double kShooterkP = 0;
-		public static final double kShooterkI = 0;
-		public static final double kShooterkD = 0;
+		public static final double kPShooter = 0;
+		public static final double kIShooter = 0;
+		public static final double kDShooter = 0;
 
+		
 	}
 
 	public static final class ClimberConstants {

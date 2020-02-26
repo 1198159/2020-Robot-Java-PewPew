@@ -19,17 +19,18 @@ public class LimeLight extends SubsystemBase
             * Updates all values in limelight
     **/
 
-    NetworkTable table; //A Network Table is like a regular table. Stores data and is routed to another location.
-    NetworkTableEntry tx, ty, ta;
-    double x, y, area;
-    double offsetX;
-    double kp = 0.1;
+    private NetworkTable table; //A Network Table is like a regular table. Stores data and is routed to another location.
+    private NetworkTableEntry tx, ty, ta, tv;
+    private double x, y, area;
+    private double offsetX;
+    private double kp = 0.1;
     public LimeLight()
     {
         table = NetworkTableInstance.getDefault().getTable("limelight"); //gets table "entries" for the limelight
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
+        tv = table.getEntry("tv");
     }
     public void update()
     {
@@ -82,6 +83,10 @@ public class LimeLight extends SubsystemBase
         return tx.getDouble(0.0);
     }
 
+    public double getTv()
+    {
+        return tv.getDouble(0.0);
+    }
     public double getDistanceToTarget()
     {
         update();

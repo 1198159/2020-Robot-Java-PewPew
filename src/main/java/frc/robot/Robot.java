@@ -7,10 +7,6 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.CANEncoder;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DriveCommand;
@@ -25,7 +21,6 @@ public class Robot extends TimedRobot {
 
   public static RobotContainer m_robotContainer;
 
-  //private CANSparkMax m_motor;
   
   /**
    * This function is run when the robot is first started up and should be used
@@ -36,13 +31,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     m_robotContainer = new RobotContainer();
-
-    
-
-    //m_motor = new CANSparkMax(deviceID, type); // Input the SparkMax port here *note* might need to add more if multiple sparkmax
-    //m_motor.restoreFactoryDefaults(); // R estores the SparkMax code to Factory Default
-    //m_motor.getEncoder(); //Vinay comment this out if this crashes the robot. I will work on fixing this when I have the ports/IDs. 
-
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
   }
@@ -102,11 +90,10 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.  
     CommandScheduler.getInstance().cancelAll();
-    m_robotContainer = new RobotContainer();
-    m_robotContainer.driveTrain.setDefaultCommand(new DriveCommand(
-                                                                  ()->(-0.4*m_robotContainer.getLeft()), 
-                                                                  ()->(-0.4*m_robotContainer.getRight()), 
-                                                                  m_robotContainer.driveTrain));
+    //m_robotContainer.driveTrain.setDefaultCommand(new DriveCommand(
+    //                                                              ()->(-0.4*m_robotContainer.getLeft()), 
+    //                                                              ()->(-0.4*m_robotContainer.getRight()), 
+    //                                                              m_robotContainer.driveTrain));
     //driveTrain.setDefaultCommand(new ShootBall(()->(m_robotContainer.getLeft())));
     //driveTrain.setDefaultCommand(new ShootBall());
   }
@@ -115,10 +102,7 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() 
-  {
-    //System.out.println(driveTrain.getDefaultCommand());
-   
+  public void teleopPeriodic() {   
   }
 
   @Override

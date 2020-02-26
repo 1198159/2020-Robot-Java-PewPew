@@ -32,10 +32,10 @@ public class DriveTrain extends SubsystemBase {
    * Creates a new DriveTrain.
    */
 
-  public WPI_TalonFX leftMaster = new WPI_TalonFX(kFLChassis);
-  public WPI_TalonFX rightMaster = new WPI_TalonFX(kFRChassis);
-  public WPI_TalonFX leftSlave = new WPI_TalonFX(kBLChassis);
-  public WPI_TalonFX rightSlave = new WPI_TalonFX(kBRChassis);
+  private WPI_TalonFX leftMaster = new WPI_TalonFX(kFLChassis);
+  private WPI_TalonFX rightMaster = new WPI_TalonFX(kFRChassis);
+  private WPI_TalonFX leftSlave = new WPI_TalonFX(kBLChassis);
+  private WPI_TalonFX rightSlave = new WPI_TalonFX(kBRChassis);
 
   private SpeedControllerGroup leftSide = new SpeedControllerGroup(leftMaster, leftSlave); //SpeedControllerGroup allows for multiple SpeedControllers to be linked together
   private SpeedControllerGroup rightSide = new SpeedControllerGroup(rightMaster, rightSlave);
@@ -43,7 +43,7 @@ public class DriveTrain extends SubsystemBase {
   private DifferentialDrive driveBase = new DifferentialDrive(leftMaster, rightMaster); //allows for us to 
   private AHRS gyro = new AHRS(SPI.Port.kMXP); //we might need to set the update rate to 60 hz
 
-  public DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(kTrackWidth);
+  private DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(kTrackWidth);
   private DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
   private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(kSChassis, kVChassis, kAChassis);

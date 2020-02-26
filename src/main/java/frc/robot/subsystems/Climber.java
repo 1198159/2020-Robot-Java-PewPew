@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climber extends SubsystemBase
 {
-    public WPI_TalonFX climber = new WPI_TalonFX(kClimber); //creates object for the TalonFx to instantiate as an object 
+    private WPI_TalonFX climber = new WPI_TalonFX(kClimber); //creates object for the TalonFx to instantiate as an object 
 
     public Climber () {
         climber.configFactoryDefault(); //sets the talons to factory default configuration

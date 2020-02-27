@@ -26,6 +26,7 @@ public class Indexer extends SubsystemBase {
     private boolean indexStarted;
     private boolean indexHappening;
     private boolean indexDone;
+    private int state;
 
     //Digital Sensor port for Beambreak
     //beambreakStart is the sensor that is closest to the turret
@@ -68,7 +69,7 @@ public class Indexer extends SubsystemBase {
 
     public void setSpeed(double speed)
     {
-        //extMotor.set(speed);
+        extMotor.set(speed);
         midMotor.set(speed);
         SmartDashboard.putNumber("heatOfMid", midMotor.getMotorTemperature());
         SmartDashboard.putNumber("heatOfExt", extMotor.getMotorTemperature());
@@ -79,6 +80,7 @@ public class Indexer extends SubsystemBase {
     public void stopIndexing()
     {
         extMotor.set(0);
+        midMotor.set(0);
     }
 
     public boolean getStartInput() {
@@ -153,14 +155,15 @@ public class Indexer extends SubsystemBase {
     public int getState() {
         
         if(!indexStarted && !indexHappening && !indexDone && getStartInput())
-            return 0;
+            state = 0;
         else if (indexStarted && !indexHappening && !indexDone && !getStartInput())
-            return 1;
+            state = 1;
         else if (!indexStarted && indexHappening && !indexDone && getStartInput())
-            return 2;
+            state = 2;
         else 
-            return 3;
+            state = 3;
 
+        return state;
     }
 
 }

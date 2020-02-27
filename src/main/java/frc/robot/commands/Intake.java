@@ -9,9 +9,7 @@ public class Intake extends CommandBase {
     private Intaker intake;
     private Indexer indexer;
     private double kIntakeSpeed = 0.8;
-    
-    private boolean intakingBall = false;
-    
+        
     public Intake(Intaker intake, Indexer indexer) {
         this.intake = intake; // Using ‘this’ keyword to refer current class instance variables
         this.indexer = indexer;
@@ -56,7 +54,7 @@ public class Intake extends CommandBase {
             indexer.setSpeed(0);
             indexer.setIndexDone();
     
-        }
+        } 
 
         /*
         if(indexer.getStartInput() && !intakingBall)//If the system was not intaking a ball before and is now, the ball count increases
@@ -87,6 +85,7 @@ public class Intake extends CommandBase {
     @Override
     public boolean isFinished() 
     {
-        return ((!indexer.getStartInput()) || (indexer.getBallCount() >= 5));
+        return false;
+        //((!indexer.getStartInput()) || (indexer.getBallCount() >= 5));
     }
 }

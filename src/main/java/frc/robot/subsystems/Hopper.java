@@ -22,7 +22,7 @@ public class Hopper extends SubsystemBase {
         hopperEncoder = new CANEncoder(hopperMotor);
         hopperMotor.restoreFactoryDefaults();
         hopperMotor.setIdleMode(IdleMode.kCoast);
-        hopperMotor.setSmartCurrentLimit(50);
+        hopperMotor.setSmartCurrentLimit(20);
         hopperMotor.enableVoltageCompensation(12);
         hopperMotor.burnFlash();
     }

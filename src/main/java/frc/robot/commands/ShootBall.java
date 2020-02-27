@@ -17,7 +17,6 @@ public class ShootBall extends CommandBase {
      * Creates a new DriveCommands.
      */
     private int spinCount = 0;
-    private int revCount = 0;
     private int hoodCount = 0;
     private double speed;
     private boolean ballLoaded = false;
@@ -46,9 +45,7 @@ public class ShootBall extends CommandBase {
 
 	// Called when the command is initially scheduled.
     @Override
-    public void initialize() 
-    {
-        shooter.setSpeed(speed);
+    public void initialize() {
         //raise the hood here        
     }
 
@@ -56,32 +53,25 @@ public class ShootBall extends CommandBase {
     @Override
     public void execute() 
     {
-        if(revCount < 20)
+        /*shooter.setSpeed(calculateNeededSpeed());
+        if(ballLoaded && !indexer.getEndInput())
         {
-            revCount++;
-        }
-        else
-        {
-            /*shooter.setSpeed(calculateNeededSpeed());
-            if(ballLoaded && !indexer.getEndInput())
-            {
-                indexer.decrementBallCount();;
+            indexer.decrementBallCount();;
             
-            }
-
-            if(indexer.getEndInput())
-            {
-                ballLoaded = true;
-                hopper.setSpeed(0.5);
-            }
-
-
-            ballLoaded = indexer.getEndInput();*/
-
-            //shooter.setSpeed(0.9);
-            indexer.setSpeed(speed);
-            hopper.setSpeed(0.8);
         }
+
+        if(indexer.getEndInput())
+        {
+            ballLoaded = true;
+            hopper.setSpeed(0.5);
+        }
+
+
+        ballLoaded = indexer.getEndInput();*/
+
+        //shooter.setPIDSpeed(4000);
+        //indexer.setSpeed(speed);
+        hopper.setSpeed(1);
     }
 
     // Called once the command ends or is interrupted.

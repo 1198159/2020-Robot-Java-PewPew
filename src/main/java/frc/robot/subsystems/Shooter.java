@@ -5,7 +5,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -34,11 +36,12 @@ public class Shooter extends SubsystemBase
     private WPI_TalonFX shooterSlave = new WPI_TalonFX(kLShooterMotor);
     private WPI_TalonFX shooterMaster = new WPI_TalonFX(kRShooterMotor);
 
-    private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(kSShooter, kVShooter, kAShooter);
+    private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.0811, 0.121, 0);
     private PIDController pidController = new PIDController(kPShooter, kIShooter, kDShooter);
 
     //instantiate the hood here
-    //private DoubleSolenoid hood = new DoubleSolenoid(kRHoodPiston, kLHoodPiston);
+    private Solenoid hood = new Solenoid(6);
+    private Compressor compressor = new Compressor();
 
     public Shooter()
     {
@@ -50,12 +53,12 @@ public class Shooter extends SubsystemBase
         shooterMaster.configVoltageCompSaturation(12);
         shooterMaster.enableVoltageCompensation(true);
         
+        compressor.setClosedLoopControl(false);
 
         //Sets up PID for the right shooter configuration
-		//shooterMaster.config_kP(1, kShooterkP);
-        //shooterMaster.config_kI(0, kShooterkI);
-        //shooterMaster.config_kD(0, kShooterkD);
-        //shooterMaster.config_kF(0, feedforward.calculate(500));
+		shooterMaster.config_kP(0, 0.28);
+        shooterMaster.config_kI(0, 0.00006);
+        shooterMaster.config_kD(0, 10);
 
         //determines if the values are inverted or not 
         shooterSlave.setInverted(true);
@@ -73,11 +76,13 @@ public class Shooter extends SubsystemBase
 
     public void setPIDSpeed(double velocity) 
     {
-        shooterMaster.setVoltage((feedforward.calculate(velocity)) + 
-        pidController.calculate(shooterMaster.getSelectedSensorVelocity(), velocity));
+        //shooterMaster.setVoltage((feedforward.calculate(velocity)) + 
+        //pidController.calculate(shooterMaster.getSelectedSensorVelocity(), velocity));
+        //shooterMaster.config_kF(1, shooterMaster.getMotorOutputVoltage()*1023.0/12/shooterMaster.getSelectedSensorVelocity());
+        shooterMaster.set(ControlMode.Velocity, velocity/600*2048);
+        //shooterMaster.setVoltage(feedforward.calculate(velocity) + pidController.calculate(shooterMaster.getSelectedSensorVelocity(), velocity));
 
-
-        SmartDashboard.putNumber("VelocityMaster: ", shooterMaster.getSelectedSensorVelocity());
+        SmartDashboard.putNumber("VelocityMaster: ", shooterMaster.getSelectedSensorVelocity() * 600 / 2048);
         SmartDashboard.putNumber("VelocitySlave: ", shooterSlave.getSelectedSensorVelocity());
         SmartDashboard.putNumber("CurrentMaster: ", shooterMaster.getSupplyCurrent());
         SmartDashboard.putNumber("CurrentSlave: ", shooterSlave.getSupplyCurrent());
@@ -85,6 +90,11 @@ public class Shooter extends SubsystemBase
 
     public void setSpeed(double speed) {
         shooterMaster.set(speed);
+        SmartDashboard.putNumber("VelocityMaster: ", shooterMaster.getSelectedSensorVelocity() * 600 / 2048);
+        SmartDashboard.putNumber("VelocitySlave: ", shooterSlave.getSelectedSensorVelocity());
+        SmartDashboard.putNumber("CurrentMaster: ", shooterMaster.getSupplyCurrent());
+        SmartDashboard.putNumber("CurrentSlave: ", shooterSlave.getSupplyCurrent());
+        SmartDashboard.putNumber("Voltage", shooterMaster.getMotorOutputVoltage());
     }
 
 

@@ -11,6 +11,7 @@ import java.util.List;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -56,13 +57,15 @@ public class RobotContainer {
   public final Intaker intake = new Intaker();
   public final Indexer indexer  = new Indexer();
   public final Hopper hopper = new Hopper();
-  public Joystick controllerLeft = new Joystick(1);
-  public Joystick controllerRight = new Joystick(0);
+  public Joystick controllerLeft = new Joystick(0);
+  public Joystick controllerRight = new Joystick(1);
   public JoystickButton leftTrigger = new JoystickButton(controllerLeft, 1);
   public JoystickButton rightTrigger = new JoystickButton(controllerRight, 1);
+  public XboxController sController = new XboxController(2);
   public JoystickButton button1 = new JoystickButton(controllerLeft, 2);
   public JoystickButton button2 = new JoystickButton(controllerLeft, 3);
   public JoystickButton button3 = new JoystickButton(controllerLeft, 4);
+  
 
   //public SamController sController = new SamController(4);
   
@@ -101,12 +104,12 @@ public class RobotContainer {
     //leftTrigger.whenPressed(new CenterTargetRobot(driveTrain, lime));
     //rightTrigger.whileHeld(new ShootBall(0.75, shooter));
     //leftTrigger.and(rightTrigger).toggleWhenActive(new CenterTarget(""));
-      rightTrigger.whenPressed(new CenterTargetRobot(driveTrain, lime));
-      leftTrigger.whenPressed(new CenterTargetTurret(turret, lime));
+      //rightTrigger.whenPressed(new CenterTargetRobot(driveTrain, lime));
+      //leftTrigger.whenPressed(new CenterTargetTurret(turret, lime));
 
-      button1.whileHeld(new Intake(intake, indexer));
-      button2.whileHeld(new ShootBall(0.4, shooter, hopper, indexer));
-      button3.whileHeld(new ShootBall(-0.4, shooter, hopper, indexer));
+    button1.whileHeld(new Intake(intake, indexer));
+    button2.whileHeld(new ShootBall(0.4, shooter, hopper, indexer));
+    button3.whileHeld(new ShootBall(-0.4, shooter, hopper, indexer));
       //button3.whileHeld(new testShooter());
       //button3.whenPressed(new Climb(climber));
 
@@ -120,8 +123,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
+    return null;
     // Create a voltage constraint to ensure we don't accelerate too fast
-    var autoVoltageConstraint =
+    /*var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(
             new SimpleMotorFeedforward(kSChassis, kVChassis, kAChassis),
             kDriveKinematics,
@@ -168,6 +172,6 @@ public class RobotContainer {
     );
 
     // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> driveTrain.tankDriveVolts(0, 0));
+    return ramseteCommand.andThen(() -> driveTrain.tankDriveVolts(0, 0));*/
   }
 }

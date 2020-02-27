@@ -8,9 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.ThreeBallAuton;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -70,12 +70,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() 
   {
     CommandScheduler.getInstance().cancelAll();
-    CommandScheduler.getInstance().schedule(new ThreeBallAuton(m_robotContainer.driveTrain, 
-                                                               m_robotContainer.lime, 
-                                                               m_robotContainer.shooter, 
-                                                               m_robotContainer.hopper, 
-                                                               m_robotContainer.indexer));
-    //m_robotContainer.driveTrain.setDefaultCommand(m_robotContainer.getAutonomousCommand());
+    //driveTrain.setDefaultCommand(new CenterTargetRobot());
+    m_robotContainer.driveTrain.setDefaultCommand(m_robotContainer.getAutonomousCommand());
     
   }
 
@@ -85,7 +81,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() 
   {  
-
+    
   }
 
   @Override
@@ -108,6 +104,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {   
+    SmartDashboard.putNumber("intakeCurrent", m_robotContainer.intake.getCurrent());
+    SmartDashboard.putNumber("intakeSpeed", m_robotContainer.intake.getSpeed());
   }
 
   @Override

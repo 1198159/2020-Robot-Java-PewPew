@@ -89,9 +89,10 @@ public final class Constants {
 	public static final class LimelightConstants {
 
 		//LIMELIGHT DISTANCE CALCULATION *********** ALL NEED UPDATING
-		public static final double groundToLimelight = Units.inchesToMeters(24);
-		public static final double groundToTarget = Units.inchesToMeters(50);
-		public static final double limelightAngleDegress = 25;
+		public static final double groundToLimelight = Units.inchesToMeters(26.5);
+		public static final double groundToTarget = Units.inchesToMeters(81.25);
+		public static final double limelightAngleDegress = 62;
+		
 
 	}
 	

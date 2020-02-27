@@ -30,6 +30,7 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
     //private double[][] gainTable = new double [][] {{}};
 
     private double distance;
+    private double scalingFactor = 1;
 
     private int count = 0;
     private double offsetXPrev;
@@ -38,7 +39,7 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
 
     private double speed;
     //old is 0.0075
-    private double kp = 0.0075   ;
+    private double kp = 0.0075; //Tuned for 10 feet of distance
     //old is 0.0005,0.0001,0.00075 is good
     private double ki = 0.00015;
     //old is 0.1    
@@ -64,12 +65,16 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
             SeesTarget = true;
         distance = lime.getDistanceToTarget();
     }
+    public void scaleValues()
+    {
+        kp *= 10/distance; //the 10 in this equation represents the distance at which kp is tuned
+    }
     public double PID(double err)
     { 
         
         if(OFFSET == -3) {
             //System.out.println("I AM HERE SO IT BROKE");
-            return deltaI;
+            return deltaI * ki;
         //return (kp * err) + (OFFSET * (err / Math.abs(err))) + (kd * deltaD);
         }
 
@@ -77,7 +82,7 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
     }
     public void updateI(double err) 
     {
-        deltaI += err * ki;
+        deltaI += err;
     }
     public void updateD(double err) 
     {

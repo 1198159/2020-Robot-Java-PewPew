@@ -4,55 +4,35 @@ package frc.robot;
 
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class SamController extends Joystick {
 
 	public SamController(int port) {
 		super(port);
-		// TODO Auto-generated constructor stub
 	}
 
-	public JoystickButton xButton = new JoystickButton(this, 3);
-	public JoystickButton yButton = new JoystickButton(this, 4);
-	public JoystickButton aButton = new JoystickButton(this, 1);
-	public JoystickButton bButton = new JoystickButton(this, 2);
-	public JoystickButton rightBumper = new JoystickButton(this, 6);
-	public JoystickButton leftBumper = new JoystickButton(this, 5);
-	public JoystickButton startButton = new JoystickButton(this, 8);
-	public JoystickButton selectButton = new JoystickButton(this, 7);
-	public JoystickButton leftStickButton = new JoystickButton(this, 9);
-	public JoystickButton rightStickButton = new JoystickButton(this, 10);
-	
-	private int m_outputs;
-	private short m_leftRumble;
-	private short m_rightRumble;
+	public SamButton xButton = new SamButton(this, SamButtons.X);
+	public SamButton yButton = new SamButton(this, SamButtons.Y);
+	public SamButton aButton = new SamButton(this, SamButtons.A);
+	public SamButton bButton = new SamButton(this, SamButtons.B);
+	public SamButton rightBumper = new SamButton(this, SamButtons.RIGHT_BUMPER);
+	public SamButton leftBumper = new SamButton(this, SamButtons.LEFT_BUMPER);
+	public SamButton startButton = new SamButton(this, SamButtons.START);
+	public SamButton selectButton = new SamButton(this, SamButtons.SELECT);
 
-	// public DPadUp dPadUp = new DPadUp(this);
-	// public DPadDown dPadDown = new DPadDown(this);
+	static enum SamButtons {
 
-	public double getTriggerTwist() {
-		double leftTriggerValue = this.getRawAxis(2);
-		double rightTriggerValue = -1 * this.getRawAxis(3);
+		A(1), B(2), X(3), Y(4), LEFT_BUMPER(5), RIGHT_BUMPER(6), SELECT(7), START(8), LEFT_STICK(9), RIGHT_STICK(10);
 
-		return leftTriggerValue + rightTriggerValue;
+		final int value;
 
-	}
+		SamButtons(int value) {
+			this.value = value;
+		}
 
-	public double getLeftStickX() {
-		return this.getRawAxis(0);
-	}
-
-	public double getLeftStickY() {
-		return -this.getRawAxis(1);
-	}
-
-	public double getRightStickX() {
-		return this.getRawAxis(4); // 4
-	}
-
-	public double getRightStickY() {
-		return -this.getRawAxis(5);
+		public int getValue() {
+			return this.value;
+		}
 	}
 
 	public void setRumble(double leftValue, double rightValue) {

@@ -5,9 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.IntakeConstants.*;
 
@@ -15,31 +13,25 @@ public class Intaker extends SubsystemBase {
 
     private CANSparkMax intakeMotor = new CANSparkMax(kIntakeMotor, MotorType.kBrushless);
     private CANEncoder encoder = new CANEncoder(intakeMotor);
-    //private DoubleSolenoid intakePistons = new DoubleSolenoid(kLIntakePiston, kRIntakePiston);
+    private Solenoid intakePistonL = new Solenoid(kLIntakePiston);
+    private Solenoid intakePistonR = new Solenoid(kRIntakePiston);
 
     public Intaker() {
         intakeMotor.restoreFactoryDefaults();
         intakeMotor.setIdleMode(IdleMode.kBrake);
-        //intakeMotor.setOpenLoopRampRate(5);
-        //intakeMotor.setClosedLoopRampRate(5);
         intakeMotor.enableVoltageCompensation(12);
         intakeMotor.setSmartCurrentLimit(50);
         intakeMotor.burnFlash();
-        //intakeMotor.set(0.8);
-        //this.putOnDash();
-
     }
 
-    public void putOnDash() {
-        
-
-    }
     public void intakePistonsIn() {
-        //intakePistons.set(Value.kReverse);
+        intakePistonL.set(false);
+        intakePistonR.set(false);
     }
 
     public void intakePistonsOut() {
-        //intakePistons.set(Value.kForward);
+        intakePistonL.set(true);
+        intakePistonR.set(true);
     }
 
     public void setSpeed(double speed) {

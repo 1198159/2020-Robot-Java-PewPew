@@ -22,8 +22,7 @@ public class LimeLight extends SubsystemBase
     private NetworkTable table; //A Network Table is like a regular table. Stores data and is routed to another location.
     private NetworkTableEntry tx, ty, ta, tv;
     private double x, y, area;
-    private double offsetX;
-    private double kp = 0.1;
+    
     public LimeLight()
     {
         table = NetworkTableInstance.getDefault().getTable("limelight"); //gets table "entries" for the limelight
@@ -31,6 +30,7 @@ public class LimeLight extends SubsystemBase
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
         tv = table.getEntry("tv");
+        //pipeline = table.getEntry("SingleZoom");
     }
     public void update()
     {
@@ -38,44 +38,15 @@ public class LimeLight extends SubsystemBase
         
         
         //read values periodically
-        x = tx.getDouble(0.0);
-        y = ty.getDouble(0.0);
-        area = ta.getDouble(0.0);
-        offsetX = x;
+        x = tx.getDouble(2.0);
+        y = ty.getDouble(2.0);
+        //pipeline.setDouble(1.0)
+        area = ta.getDouble(2.0);
         //post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", x);
         SmartDashboard.putNumber("LimelightY", y);
         SmartDashboard.putNumber("LimelightArea", area);
     }
-
-    /*
-    public double getLeft()
-    {
-        update();
-        if(offsetX > 0 && Math.abs(offsetX) > 5)
-        {
-            return -kp*(tx.getDouble(0.0));
-        }
-        else if(offsetX < 0 && Math.abs(offsetX) > 5)
-        {
-            return kp*(tx.getDouble(0.0));
-        } 
-        return 0;
-    }
-    public double getRight()
-    {
-        update();
-        if(offsetX > 0 && Math.abs(offsetX) > 5)
-        {
-            return kp*(tx.getDouble(0.0));
-        }
-        else if(offsetX < 0 && Math.abs(offsetX) > 5)
-        {
-            return -kp*(tx.getDouble(0.0));
-        } 
-        return 0;
-    }
-    */
     
     public double getTx()
     {

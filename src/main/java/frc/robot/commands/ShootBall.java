@@ -16,10 +16,7 @@ public class ShootBall extends CommandBase {
     /**
      * Creates a new DriveCommands.
      */
-    private int spinCount = 0;
-    private int hoodCount = 0;
     private double speed;
-    private boolean ballLoaded = false;
 
     private final Shooter shooter;
     private final Hopper hopper;
@@ -53,28 +50,12 @@ public class ShootBall extends CommandBase {
     @Override
     public void execute() 
     {
-        /*shooter.setSpeed(calculateNeededSpeed());
-        if(ballLoaded && !indexer.getEndInput())
-        {
-            indexer.decrementBallCount();;
-            
-        }
-
-        if(indexer.getEndInput())
-        {
-            ballLoaded = true;
-            hopper.setSpeed(0.5);
-        }
-
-
-        ballLoaded = indexer.getEndInput();*/
-
-        //shooter.setPIDSpeed(4000);
-        //indexer.setSpeed(speed);
-        hopper.setSpeed(1);
+        shooter.setPIDSpeed(6000);
+        indexer.setSpeed(speed);
+        hopper.setSpeed(0.95);
     }
 
-    // Called once the command ends or is interrupted.
+    // Called once the command ends orlkkk is interrupted.
     @Override
     public void end(boolean interrupted) {
         shooter.setSpeed(0);

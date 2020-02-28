@@ -8,7 +8,9 @@ public class Intake extends CommandBase {
 
     private Intaker intake;
     private Indexer indexer;
-    private double kIntakeSpeed = 0.8;
+    private double kIntakeSpeed = 1;
+    private double kIndexSpeed = 0.4;
+    private boolean reverse = false;
         
     public Intake(Intaker intake, Indexer indexer) {
         this.intake = intake; // Using ‘this’ keyword to refer current class instance variables
@@ -17,9 +19,16 @@ public class Intake extends CommandBase {
         addRequirements(indexer);
     }
 
-    @Override
+    public Intake(Intaker intake, Indexer indexer, boolean reverse) {
+        this(intake, indexer);
+        this.reverse = reverse;
+	}
+
+	@Override
     public void initialize() 
     {
+        kIndexSpeed = reverse ? -kIndexSpeed : kIndexSpeed;
+        intake.intakePistonsOut();
     }
 
 
@@ -41,12 +50,12 @@ public class Intake extends CommandBase {
             SmartDashboard.putString("IndexingState", "0");
 
         case 1:
-            indexer.setSpeed(kIntakeSpeed);
+            indexer.setSpeed(kIndexSpeed);
             if (indexer.getStartInput())
              indexer.indexHappen();
             SmartDashboard.putString("IndexingState", "1");
         case 2:
-            indexer.setSpeed(kIntakeSpeed);
+            indexer.setSpeed(kIndexSpeed);
             if (indexer.getStartInput())
               indexer.indexStart();
             SmartDashboard.putString("IndexingState", "2");
@@ -56,21 +65,6 @@ public class Intake extends CommandBase {
     
         } 
 
-        /*
-        if(indexer.getStartInput() && !intakingBall)//If the system was not intaking a ball before and is now, the ball count increases
-            indexer.incrementBallCount();
-        intakingBall = indexer.getStartInput(); //Checks to see if the system is currently intaking a ball
-        
-        if(intakingBall)   
-            indexer.indexBalls(0.5);
-        else
-            indexer.stopIndexing();
-
-        if (indexer.getBallCount() < 5) //if the indexer reads less than 5 balls, than the intake will continue to spin
-            intake.setSpeed(kIntakeSpeed);
-        else
-            intake.stopIntake(); //stops intake if ball count is 5*/
-        
         SmartDashboard.putNumber("intakeSpeed", intake.getSpeed());
     }
 
@@ -78,8 +72,8 @@ public class Intake extends CommandBase {
     public void end(boolean interrupted) 
     {
         intake.stopIntake(); //If anything happens, such as a manual overide, then Intake is stopped
-        //intake.intakePistonsIn();
-        //indexer.stopIndexing();
+        intake.intakePistonsIn();
+        indexer.stopIndexing();
     }
 
     @Override

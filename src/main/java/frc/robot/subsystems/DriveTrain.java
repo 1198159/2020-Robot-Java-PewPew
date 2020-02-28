@@ -12,14 +12,12 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -43,7 +41,6 @@ public class DriveTrain extends SubsystemBase {
   private DifferentialDrive driveBase = new DifferentialDrive(leftMaster, rightMaster); //allows for us to 
   private AHRS gyro = new AHRS(SPI.Port.kMXP); //we might need to set the update rate to 60 hz
 
-  private DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(kTrackWidth);
   private DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
   private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(kSChassis, kVChassis, kAChassis);
@@ -81,8 +78,8 @@ public class DriveTrain extends SubsystemBase {
     leftSlave.setNeutralMode(NeutralMode.Brake);
     rightSlave.setNeutralMode(NeutralMode.Brake);
     
-    rightMaster.configClosedloopRamp(0.5);
-    leftMaster.configClosedloopRamp(0.5);
+    rightMaster.configClosedloopRamp(3);
+    leftMaster.configClosedloopRamp(3);
 
     gyro.reset();
 
@@ -134,7 +131,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void setMaxVoltage(double max) {
-    driveBase.setMaxOutput(12);
+    driveBase.setMaxOutput(12.3);
   }
 
   public double getTurnRate() {
@@ -142,21 +139,23 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void driveCartesian(double left, double right) {
+
+    
     leftMaster.set(ControlMode.PercentOutput, left);
     rightMaster.set(ControlMode.PercentOutput, -right);
 
     //SmartDashboard.putNumber("left", left);
     //SmartDashboard.putNumber("right", right);
-    SmartDashboard.putNumber("rightFront", rightMaster.get());
-    SmartDashboard.putNumber("leftFront", leftMaster.get());
-    SmartDashboard.putNumber("rightBack", rightSlave.get());
-    SmartDashboard.putNumber("leftBack", leftSlave.get());
+    SmartDashboard.putNumber("rightFront", rightMaster.getSupplyCurrent());
+    SmartDashboard.putNumber("leftFront", leftMaster.getSupplyCurrent());
+    SmartDashboard.putNumber("rightBack", rightSlave.getSupplyCurrent());
+    SmartDashboard.putNumber("leftBack", leftSlave.getSupplyCurrent());
 
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    leftSide.setVoltage(leftVolts);
-    rightSide.setVoltage(-rightVolts);
+    leftSide.setVoltage(rightVolts);
+    rightSide.setVoltage(-leftVolts);
     driveBase.feed();
   }
 

@@ -39,7 +39,8 @@ public class DriveCommand extends CommandBase {
   public void execute() {
     // System.out.println("L: " + leftVal.getAsDouble());
     // System.out.println("R: " + rightVal.getAsDouble() + "\n");
-    driveTrain.driveCartesian(leftVal.getAsDouble(), rightVal.getAsDouble());
+    driveTrain.tankDriveVolts(12.3*leftVal.getAsDouble(), 12.3*rightVal.getAsDouble());
+    //driveTrain.driveCartesian(leftVal.getAsDouble(), rightVal.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

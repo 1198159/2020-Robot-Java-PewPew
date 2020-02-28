@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("Distance", m_robotContainer.lime.getDistanceToTarget());
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -70,14 +71,10 @@ public class Robot extends TimedRobot {
   public void autonomousInit() 
   {
     CommandScheduler.getInstance().cancelAll();
-    //driveTrain.setDefaultCommand(new CenterTargetRobot());
     m_robotContainer.driveTrain.setDefaultCommand(m_robotContainer.getAutonomousCommand());
-    
   }
 
-  /*
-   * This function is called periodically during autonomous.
-   */
+
   @Override
   public void autonomousPeriodic() 
   {  
@@ -86,17 +83,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.  
     CommandScheduler.getInstance().cancelAll();
-    //m_robotContainer.driveTrain.setDefaultCommand(new DriveCommand(
-    //                                                              ()->(-0.4*m_robotContainer.getLeft()), 
-    //                                                              ()->(-0.4*m_robotContainer.getRight()), 
-    //                                                              m_robotContainer.driveTrain));
-    //driveTrain.setDefaultCommand(new ShootBall(()->(m_robotContainer.getLeft())));
-    //driveTrain.setDefaultCommand(new ShootBall());
+    m_robotContainer.driveTrain.setDefaultCommand(new DriveCommand(
+                                                                  ()->(-1*(Math.abs(m_robotContainer.getLeft()) > 0.05? m_robotContainer.getLeft() : 0)), 
+                                                                  ()->(-1*(Math.abs(m_robotContainer.getRight()) > 0.05? m_robotContainer.getRight() : 0)), 
+                                                                  m_robotContainer.driveTrain));
   }
 
   /**
@@ -104,13 +95,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {   
-    SmartDashboard.putNumber("intakeCurrent", m_robotContainer.intake.getCurrent());
-    SmartDashboard.putNumber("intakeSpeed", m_robotContainer.intake.getSpeed());
   }
 
   @Override
   public void testInit() {
-    // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }
 

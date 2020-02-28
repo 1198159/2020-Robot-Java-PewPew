@@ -1,19 +1,16 @@
 package frc.robot.subsystems;
 
 //imports for the SparkMax's
-import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 //import for the Digital sensor aka beam break sensor 
-import edu.wpi.first.wpilibj.InterruptableSensorBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANError;
 
 
 import static frc.robot.Constants.IndexerConstants.*;
@@ -67,16 +64,22 @@ public class Indexer extends SubsystemBase {
         SmartDashboard.putBoolean("beamBreak", beamBreakStartOutput.get());
     }
 
-    public void setSpeed(double speed)
+    public void setSpeed(double speed1, double speed2)
     {
-        extMotor.set(speed);
-        midMotor.set(speed);
+        extMotor.set(speed1);
+        midMotor.set(speed2);
         SmartDashboard.putNumber("heatOfMid", midMotor.getMotorTemperature());
         SmartDashboard.putNumber("heatOfExt", extMotor.getMotorTemperature());
         SmartDashboard.putNumber("currentOfMid", midMotor.getOutputCurrent());
         SmartDashboard.putNumber("currentOfExt", extMotor.getOutputCurrent());
 
     }
+
+    public void setSpeed(double d) {
+        extMotor.set(d*1.5);
+        midMotor.set(d);
+	}
+
     public void stopIndexing()
     {
         extMotor.set(0);

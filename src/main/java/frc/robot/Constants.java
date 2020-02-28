@@ -47,7 +47,7 @@ public final class Constants {
 		//INTAKE PISTON AND MOTOR *********** PORTS NEED UPDATING
 		public static final int kIntakeMotor = 40;
 		public static final int kLIntakePiston = 0;
-		public static final int kRIntakePiston = 0;
+		public static final int kRIntakePiston = 1;
 
 		//public static final double kIntakeSpeed = 0.75;
 
@@ -114,9 +114,9 @@ public final class Constants {
 		public static final double kAShooter = 0;
 
 		//PID VALUES FOR SHOOTER
-		public static final double kPShooter = 0;
-		public static final double kIShooter = 0;
-		public static final double kDShooter = 0;
+		public static final double kPShooter = 0.28;
+		public static final double kIShooter = 0.00006;
+		public static final double kDShooter = 10;
 
 		
 	}

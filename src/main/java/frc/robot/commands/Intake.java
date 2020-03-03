@@ -8,8 +8,8 @@ public class Intake extends CommandBase {
 
     private Intaker intake;
     private Indexer indexer;
-    private double kIntakeSpeed = 1;
-    private double kIndexSpeed = 0.4;
+    private double kIntakeSpeed = 0.9;
+    private double kIndexSpeed;
     private boolean reverse = false;
         
     public Intake(Intaker intake, Indexer indexer) {
@@ -19,16 +19,16 @@ public class Intake extends CommandBase {
         addRequirements(indexer);
     }
 
-    public Intake(Intaker intake, Indexer indexer, boolean reverse) {
+    public Intake(Intaker intake, Indexer indexer, double speed) {
         this(intake, indexer);
-        this.reverse = reverse;
+        kIndexSpeed = speed;        
 	}
 
 	@Override
     public void initialize() 
     {
         kIndexSpeed = reverse ? -kIndexSpeed : kIndexSpeed;
-        intake.intakePistonsOut();
+        //intake.intakePistonsOut();
     }
 
 
@@ -36,10 +36,10 @@ public class Intake extends CommandBase {
     public void execute() 
     {   
 
-        intake.setSpeed(kIntakeSpeed);
+        intake.setSpeed(0.9);
         SmartDashboard.putNumber("intakeCurrent", intake.getCurrent());
 
-        indexer.getBeam();
+        /*indexer.getBeam();
 
         switch(indexer.getState()) {
         
@@ -63,7 +63,9 @@ public class Intake extends CommandBase {
             indexer.setSpeed(0);
             indexer.setIndexDone();
     
-        } 
+        } */
+
+        indexer.setSpeed(kIndexSpeed);
 
         SmartDashboard.putNumber("intakeSpeed", intake.getSpeed());
     }
@@ -72,7 +74,7 @@ public class Intake extends CommandBase {
     public void end(boolean interrupted) 
     {
         intake.stopIntake(); //If anything happens, such as a manual overide, then Intake is stopped
-        intake.intakePistonsIn();
+        //intake.intakePistonsIn();
         indexer.stopIndexing();
     }
 

@@ -9,8 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DriveCommand;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -46,7 +48,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Distance", m_robotContainer.lime.getDistanceToTarget());
+    //SmartDashboard.putNumber("Distance", m_robotContainer.lime.getDistanceToTarget());
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -58,6 +60,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    CommandScheduler.getInstance().cancelAll();
   }
 
   @Override
@@ -70,8 +73,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() 
   {
-    CommandScheduler.getInstance().cancelAll();
-    m_robotContainer.driveTrain.setDefaultCommand(m_robotContainer.getAutonomousCommand());
+    m_robotContainer.getAutonomousCommand().schedule();
   }
 
 
@@ -85,16 +87,18 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     CommandScheduler.getInstance().cancelAll();
     m_robotContainer.driveTrain.setDefaultCommand(new DriveCommand(
-                                                                  ()->(-1*(Math.abs(m_robotContainer.getLeft()) > 0.05? m_robotContainer.getLeft() : 0)), 
-                                                                  ()->(-1*(Math.abs(m_robotContainer.getRight()) > 0.05? m_robotContainer.getRight() : 0)), 
-                                                                  m_robotContainer.driveTrain));
+    ()->(-1*Math.signum(m_robotContainer.getLeft())*(Math.pow((-0.95*(Math.abs(m_robotContainer.getLeft()) > 0.05? m_robotContainer.getLeft() : 0)), 2))), 
+    ()->(-1*Math.signum(m_robotContainer.getRight())*(Math.pow((-0.95*(Math.abs(m_robotContainer.getRight()) > 0.05? m_robotContainer.getRight() : 0)), 2))), 
+    m_robotContainer.driveTrain));
   }
 
   /**
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() {   
+  public void teleopPeriodic() {
+    //System.out.println(m_robotContainer.sController.leftBumper.get());
+    //System.out.println(m_robotContainer.sController.aButton.get());
   }
 
   @Override

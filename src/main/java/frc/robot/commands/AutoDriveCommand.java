@@ -12,16 +12,16 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class DriveCommand extends CommandBase {
+public class AutoDriveCommand extends CommandBase {
   /**
    * Creates a new DriveCommands.
    */
 
   private DriveTrain driveTrain;
-  private DoubleSupplier leftVal; //DoubleSupplier is a supplier of double-valued results, allows us to get multiple values simultaneously
-  private DoubleSupplier rightVal;
+  private double leftVal; //DoubleSupplier is a supplier of double-valued results, allows us to get multiple values simultaneously
+  private double rightVal;
 
-  public DriveCommand(DoubleSupplier leftVal, DoubleSupplier rightVal, DriveTrain driveTrain) {
+  public AutoDriveCommand(double leftVal, double rightVal, DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
     addRequirements(driveTrain);
@@ -46,7 +46,7 @@ public class DriveCommand extends CommandBase {
   public void execute() {
     // System.out.println("L: " + leftVal.getAsDouble());
     // System.out.println("R: " + rightVal.getAsDouble() + "\n");
-    driveTrain.tankDriveVolts(12.3*rightVal.getAsDouble(), 12.3*leftVal.getAsDouble());
+    driveTrain.tankDriveVolts(12.3*rightVal, 12.3*leftVal);
     //driveTrain.driveCartesian(leftVal.getAsDouble(), rightVal.getAsDouble());
   }
 

@@ -9,8 +9,8 @@ import frc.robot.subsystems.Shooter;
 
 public class AutonCommand extends SequentialCommandGroup {
 
-    public AutonCommand(DriveTrain drive, LimeLight lime, Shooter shooter, Hopper hopper, Indexer indexer) {
-        super(new CenterTargetRobot(drive, lime), new ShootBall(0.4, shooter, hopper, indexer));
+    public AutonCommand(LimeLight lime, Shooter shooter, Hopper hopper, Indexer indexer) {
+        super(new SequentialCommandGroup(new SpinUp(shooter).withTimeout(0.2), new FeedToShooter(-0.4, shooter, hopper, indexer)));
     }
 
 }

@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
@@ -13,7 +14,7 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
     //private double goal = 0.0;
     private double error;
     private double offsetX;
-    private double margin = 0.2;
+    private double margin = 1;
 
     private int finalCount = 0;
 
@@ -26,9 +27,9 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
 
     private double speed;
     //old is 0.0075
-    private double kp = 0.0075   ;
+    private double kp = 0.0055;//sookk says 0.0020
     //old is 0.0005,0.0001,0.00075 is good
-    private double ki = 0.008015;
+    private double ki = 0.006015;
     //old is 0.1    
     private double kd = 3;
 
@@ -74,6 +75,7 @@ public class CenterTargetRobot extends CommandBase //this class is apart of the 
     @Override
     public void execute() 
     {
+        SmartDashboard.putNumber("OFFSETX", offsetX);
         offsetX = lime.getTx();
         error = offsetX;
         finalCount++;

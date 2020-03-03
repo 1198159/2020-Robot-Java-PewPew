@@ -46,8 +46,8 @@ public final class Constants {
 
 		//INTAKE PISTON AND MOTOR *********** PORTS NEED UPDATING
 		public static final int kIntakeMotor = 40;
-		public static final int kLIntakePiston = 0;
-		public static final int kRIntakePiston = 1;
+		public static final int kIntakePiston = 1;
+		public static final int kShooterPiston = 0;
 
 		//public static final double kIntakeSpeed = 0.75;
 
@@ -124,8 +124,9 @@ public final class Constants {
 	public static final class ClimberConstants {
 
 		//CLIMBER MOTOR AND SPEED *********** NEED TO BE UPDATED
-		public static final int kClimber = 0;
-		public static final double kClimbSpeed = 0.25;
+		public static final int kClimberL = 51;
+		public static final int kClimberR = 52;
+		public static final double kClimbSpeed = 0.8;
 
 	}
 

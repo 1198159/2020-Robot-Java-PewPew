@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -39,9 +39,9 @@ public class DriveTrain extends SubsystemBase {
   private SpeedControllerGroup rightSide = new SpeedControllerGroup(rightMaster, rightSlave);
 
   private DifferentialDrive driveBase = new DifferentialDrive(leftMaster, rightMaster); //allows for us to 
-  private AHRS gyro = new AHRS(SPI.Port.kMXP); //we might need to set the update rate to 60 hz
+  //private AHRS gyro = new AHRS(SPI.Port.kMXP); //we might need to set the update rate to 60 hz
 
-  private DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
+  //private DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
   private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(kSChassis, kVChassis, kAChassis);
   
@@ -78,17 +78,19 @@ public class DriveTrain extends SubsystemBase {
     leftSlave.setNeutralMode(NeutralMode.Brake);
     rightSlave.setNeutralMode(NeutralMode.Brake);
     
-    rightMaster.configClosedloopRamp(3);
-    leftMaster.configClosedloopRamp(3);
+    //rightMaster.configClosedloopRamp(10);
+    //leftMaster.configClosedloopRamp(10);
+    //rightMaster.configOpenloopRamp(10);
+    //leftMaster.configOpenloopRamp(10);
 
-    gyro.reset();
+    //gyro.reset();
 
    // this.setMaxVoltage(0.5);
 
     
-    gyro.enableLogging(true);
+    //gyro.enableLogging(true);
    // System.out.println(gyro.getFirmwareVersion());
-    gyro.isCalibrating();
+    //gyro.isCalibrating();
     //System.out.println(gyro.isRotating());
 
     //pid.setSetpoint(setPoint);
@@ -103,17 +105,17 @@ public class DriveTrain extends SubsystemBase {
     leftSlave.setSelectedSensorPosition(0);
   }
 
-  public Rotation2d getHeading() {
-    return Rotation2d.fromDegrees(Math.IEEEremainder(gyro.getAngle(), 360));
-  }
+  //public Rotation2d getHeading() {
+  //  return Rotation2d.fromDegrees(Math.IEEEremainder(gyro.getAngle(), 360));
+  //}
 
-  public Pose2d getPose() {
-    return odometry.getPoseMeters();
-  }
+  //public Pose2d getPose() {
+  //  return odometry.getPoseMeters();
+  //}
 
-  public void resetOdometry(Pose2d pose) {
-    odometry.resetPosition(pose, getHeading());
-  }
+  //public void resetOdometry(Pose2d pose) {
+ //   odometry.resetPosition(pose, getHeading());
+  //}
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() 
   {
@@ -135,7 +137,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public double getTurnRate() {
-    return gyro.getRate();
+    return 0;//gyro.getRate();
   }
 
   public void driveCartesian(double left, double right) {
@@ -177,9 +179,9 @@ public class DriveTrain extends SubsystemBase {
     return rightMaster.getSelectedSensorVelocity();
   }
 
-  @Override
-  public void periodic() {
-    odometry.update(getHeading(), leftMaster.getSelectedSensorPosition(), rightMaster.getSelectedSensorPosition());
-  }
+  //@Override
+  //public void periodic() {
+  //  odometry.update(getHeading(), leftMaster.getSelectedSensorPosition(), rightMaster.getSelectedSensorPosition());
+  //}
 
 }

@@ -76,7 +76,7 @@ public class Indexer extends SubsystemBase {
     }
 
     public void setSpeed(double d) {
-        extMotor.set(d*1.5);
+        extMotor.set(d*2.25);
         midMotor.set(d);
 	}
 

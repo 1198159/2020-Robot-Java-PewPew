@@ -13,25 +13,29 @@ public class Intaker extends SubsystemBase {
 
     private CANSparkMax intakeMotor = new CANSparkMax(kIntakeMotor, MotorType.kBrushless);
     private CANEncoder encoder = new CANEncoder(intakeMotor);
-    private Solenoid intakePistonL = new Solenoid(kLIntakePiston);
-    private Solenoid intakePistonR = new Solenoid(kRIntakePiston);
+    //private Solenoid intakePiston = new Solenoid(kIntakePiston);
+    //private Solenoid shooterPiston = new Solenoid(kShooterPiston);
 
     public Intaker() {
         intakeMotor.restoreFactoryDefaults();
         intakeMotor.setIdleMode(IdleMode.kBrake);
         intakeMotor.enableVoltageCompensation(12);
-        intakeMotor.setSmartCurrentLimit(50);
+        intakeMotor.setSmartCurrentLimit(60);
         intakeMotor.burnFlash();
     }
 
+    public void togglePistons() {
+        //intakePiston.set(!intakePiston.get());
+    }
+
     public void intakePistonsIn() {
-        intakePistonL.set(false);
-        intakePistonR.set(false);
+        //intakePiston.set(false);
+
     }
 
     public void intakePistonsOut() {
-        intakePistonL.set(true);
-        intakePistonR.set(true);
+        //intakePiston.set(true);
+
     }
 
     public void setSpeed(double speed) {
@@ -48,6 +52,10 @@ public class Intaker extends SubsystemBase {
 
 	public double getCurrent() {
 		return intakeMotor.getOutputCurrent();
+	}
+
+	public boolean intakePistonsGet() {
+		return false;//intakePiston.get();
 	}
 
 

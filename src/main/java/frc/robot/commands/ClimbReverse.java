@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.Constants.ClimberConstants.*;
 import frc.robot.subsystems.Climber;
 
-public class Climb extends CommandBase {
+public class ClimbReverse extends CommandBase {
 
     private Climber climber;
     
-    public Climb(Climber climber) {
+    public ClimbReverse(Climber climber) {
         this.climber = climber;
         addRequirements(climber);
     }
@@ -21,7 +21,8 @@ public class Climb extends CommandBase {
 
     @Override
     public void execute() {
-        climber.setSpeed(kClimbSpeed); //supposed to set the speed of the climber
+        climber.setSpeed(-kClimbSpeed); //supposed to set the speed of the climber
+
     }
 
     @Override
